@@ -1,36 +1,48 @@
-# m5-deepdive — Inside silicon
+# Inside Silicon — M5 Deep Dive
 
-Exploring the Apple M5 chip down to the atomic level.
+**Scroll from an Apple M5 chip all the way down to a single silicon atom, in one continuous camera move.**
 
-A standalone, one-page WebGL chip journey inspired by [MKBHD and Epic Spaceman’s M5 exploration](https://www.youtube.com/watch?v=Jh9pFp1oM7E).
+### [▶ Try it live](https://arunsai63.github.io/m5-deepdive/)
 
-Run locally from the repository root:
+![M5 chip](assets/poster.webp)
+
+---
+
+## The journey
+
+One scroll takes you through six levels of scale, with no cuts or scene changes.
+
+| | Stop | What you see |
+|---|---|---|
+| 1 | **A world within** | The M5 package, a whole architecture inside a piece of silicon |
+| 2 | **Beneath the surface** | The die, where CPU cores, GPU blocks and memory sit side by side |
+| 3 | **Order at every scale** | Inside a core: SRAM arrays next to rows of logic cells |
+| 4 | **A different kind of skyline** | Copper wiring layers stacked like a city, joined by vias |
+| 5 | **It comes down to a switch** | A single transistor, the tiny gate repeated billions of times |
+| 6 | **One atom** | Through an opening in the transistor into the silicon crystal, ending on one atom |
+
+## Highlights
+
+- **Real-time 3D in the browser.** Built with WebGL and Three.js, running smoothly at 60 fps.
+- **One unbroken zoom.** The camera stays in a single nested world from millimetres down to atoms.
+- **3,415 atoms.** The ending is a real diamond-cubic silicon lattice built to correct proportions.
+- **Labels on the geometry.** Annotations stay attached to the parts they describe as you move.
+- **Works everywhere.** Responsive on phones, respects reduced-motion settings, and needs no build step.
+
+## Run it locally
 
 ```sh
-python3 -m http.server 5185 --bind 127.0.0.1
+python3 -m http.server 8000
 ```
 
-Open http://127.0.0.1:5185/. On GitHub Pages it is served directly from the repository root. No build step or external runtime CDN is required. Three.js and the Manrope font are vendored with their licenses.
+Then open http://localhost:8000.
 
-The camera follows one nested world: package → die → core → interconnects → transistor → silicon crystal → one atom. `journey.js` defines the hierarchy, continuous camera path, and geometry-attached label anchors. `scene-data.js` contains deterministic instanced geometry. The final atomic descent appends scroll distance after the original ending; earlier scroll positions and camera poses remain intact. A floating origin maintains precision during the descent.
+## Inspiration
 
-The atomic model contains 3,415 silicon sites and 6,144 nearest-neighbour bonds. The selected interior atom has four bonds. A real opening in the fin contains the crystal model. The final camera approaches the same highlighted atom without a scene switch. Surface colours, atom spheres, and bond rods are explanatory. This is not a reconstruction of Apple's proprietary layout or an optical photograph at atomic scale.
+Inspired by [MKBHD × Epic Spaceman's M5 exploration](https://www.youtube.com/watch?v=Jh9pFp1oM7E).
 
-## Assets
+> This is an artistic, educational visualisation. It isn't Apple's actual chip layout. Colours and shapes are chosen to explain, not to photograph.
 
-- `assets/materials/`: original procedural die maps, height/normal/roughness maps and package markings. `scripts/make-materials.py` regenerates them.
-- `assets/poster.webp`: generated loading/fallback artwork.
-- `assets/vendor/`: Three.js, vendored with its license.
+---
 
-## Scientific references
-
-- [NIST silicon reference material](https://www.nist.gov/publications/certification-nist-standard-reference-material-640d): the cubic lattice constant rounds to 0.543 nm. Diamond-cubic nearest-neighbour spacing is a√3/4 ≈ 0.235 nm. These are bulk reference values, not measured M5 dimensions.
-- [Intel high-k / metal-gate research](https://www.intel.com/pressroom/kits/advancedtech/doodle/ref_HiK-MG/high-k.htm): hafnium-based gate dielectric as a representative materials example. This does not identify Apple's exact gate stack.
-- [DOE explanation of electrons](https://www.energy.gov/science/doe-explainselectrons): electron probability clouds, rather than tiny solid particles following drawn orbital tracks. The atomic ending uses a ball-and-stick crystal model; no electron diameter is claimed.
-- [Apple M5 introduction](https://www.apple.com/newsroom/2025/10/apple-unleashes-m5-the-next-big-leap-in-ai-performance-for-apple-silicon/): process generation context. “3 nm” is not the literal size of every feature.
-
-## Verification
-
-Browser checks used local Chrome with real WebGL 2 through Metal.
-
-Checked all chapter navigation, replay from the atom, attached-label visibility, text toggle, dialog keyboard close, reduced motion, 200% text enlargement, horizontal overflow, and forced WebGL context loss followed by a successful retry. Atomic geometry was checked for exact nearest-neighbour connectivity; the camera distance decreases continuously through the full path. During one 3.5-second desktop atomic scroll sample, median frame interval was 16.7 ms and the 95th percentile was 16.8 ms. This is a local-machine result, not a performance guarantee for other devices. Mobile checks emulate viewports in Chrome, not physical phones.
+Made by [arunsai63](https://github.com/arunsai63)
