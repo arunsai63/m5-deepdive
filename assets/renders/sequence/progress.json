@@ -1,0 +1,12 @@
+{
+  "state": "rendering",
+  "total": 480,
+  "completed": 463,
+  "current": 462,
+  "width": 2560,
+  "height": 1600,
+  "samples": 128,
+  "updatedAtEpoch": 1789381638.230598,
+  "remainingSeconds": 1686.893,
+  "latestFrame": "frame-0461.png"
+}

@@ -1,0 +1,13 @@
+{
+  "atoms": 3415,
+  "bonds": 6144,
+  "selectedNeighbours": 4,
+  "unitCellNm": 0.543,
+  "neighbourSpacingNm": 0.2351258971274751,
+  "cameraSamples": 15501,
+  "isotropicCrystalScale": [
+    5e-7,
+    5e-7,
+    5e-7
+  ]
+}

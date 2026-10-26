@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101214">
+    <meta name="description" content="A scroll-driven 3D descent into a chip, inspired by Apple M5. From the package to the silicon, copper interconnects, and the transistor.">
+    <title>Inside silicon — M5</title>
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+    <link rel="preload" href="./assets/poster.webp" as="image">
+    <link rel="stylesheet" href="./style.css">
+    <script type="importmap">{"imports":{"three":"./assets/vendor/three.module.js"}}</script>
+  </head>
+  <body>
+    <a class="skip" href="#journey">Skip to the chip journey</a>
+    <div class="viewport" aria-hidden="true">
+      <img class="poster" src="./assets/poster.webp" alt="" fetchpriority="high">
+      <canvas id="world"></canvas>
+      <div class="edge-shade"></div>
+    </div>
+
+    <header class="topbar">
+      <a class="identity" href="#package" aria-label="Inside silicon, back to the whole chip">
+        <svg viewBox="0 0 28 28" fill="none" aria-hidden="true"><rect x="7" y="7" width="14" height="14" rx="3"/><path d="M10 2v5m8-5v5M10 21v5m8-5v5M2 10h5m-5 8h5m14-8h5m-5 8h5"/><rect x="11" y="11" width="6" height="6" rx="1"/></svg>
+        <span>Inside silicon<span class="identity-detail">An M5 exploration</span></span>
+      </a>
+      <div class="top-actions">
+        <button class="info-button" id="about-button" aria-label="About this exploration">i</button>
+      </div>
+    </header>
+
+    <main id="journey" tabindex="-1">
+      <section class="chapter" id="package" data-chapter="0" aria-labelledby="title-package">
+        <div class="chapter-copy">
+          <p class="chapter-index">The package</p>
+          <h1 id="title-package">A world<br>within.</h1>
+          <p>An entire architecture, hidden in a piece of silicon. Let’s go inside.</p>
+          <a class="descend" href="#silicon"><span class="scroll-track" aria-hidden="true"><span></span></span>Scroll to explore</a>
+        </div>
+      </section>
+      <section class="chapter" id="silicon" data-chapter="1" aria-labelledby="title-silicon">
+        <div class="chapter-copy">
+          <p class="chapter-index">The silicon die</p>
+          <h2 id="title-silicon">Beneath<br>the surface.</h2>
+          <p>CPU cores, GPU blocks, and memory share the die. Follow the outlined CPU core as we move into its circuitry.</p>
+          <span class="material-note"><span class="swatch silicon"></span>Silicon · thin-film passivation</span>
+        </div>
+      </section>
+      <section class="chapter" id="logic" data-chapter="2" aria-labelledby="title-logic">
+        <div class="chapter-copy">
+          <p class="chapter-index">The circuit blocks</p>
+          <h2 id="title-logic">Order at<br>every scale.</h2>
+          <p>Inside the core, SRAM arrays sit beside rows of logic cells. Follow their local wiring into the outlined metal stack.</p>
+          <span class="material-note"><span class="swatch gold"></span>Logic cells · memory arrays</span>
+        </div>
+      </section>
+      <section class="chapter" id="wiring" data-chapter="3" aria-labelledby="title-wiring">
+        <div class="chapter-copy">
+          <p class="chapter-index">The interconnects</p>
+          <h2 id="title-wiring">A different<br>kind of skyline.</h2>
+          <p>Layers of metal carry signals over and between the circuits. Vertical connections, called vias, join one layer to the next.</p>
+          <span class="material-note"><span class="swatch copper"></span>Copper · dielectric · vias</span>
+        </div>
+      </section>
+      <section class="chapter" id="transistor" data-chapter="4" aria-labelledby="title-transistor">
+        <div class="chapter-copy">
+          <p class="chapter-index">The transistor</p>
+          <h2 id="title-transistor">It comes down<br>to a switch.</h2>
+          <p class="final-description">A gate controls current through a silicon channel. Repeat this tiny idea billions of times, and a computer emerges.</p>
+          <span class="material-note"><span class="swatch silver"></span><span class="final-material">FinFET · illustrative cutaway</span></span>
+          <p class="atomic-comparison" hidden><strong>1 nm ≈ 4.3 Si–Si spacings</strong><span>About four atomic spacings fit in one nanometre.</span></p>
+          <button class="replay" id="replay"><span aria-hidden="true">↺</span> Back to the whole chip</button>
+        </div>
+      </section>
+    </main>
+
+    <div id="object-annotations" class="object-annotations" role="group" aria-label="Labels attached to chip structures"></div>
+
+    <nav class="chapter-nav" aria-label="Explore chip layers">
+      <a href="#package" aria-label="The package" aria-current="step"><span class="nav-label">Package</span><span class="nav-tick"></span></a>
+      <a href="#silicon" aria-label="The silicon die"><span class="nav-label">Silicon</span><span class="nav-tick"></span></a>
+      <a href="#logic" aria-label="Circuit blocks"><span class="nav-label">Circuits</span><span class="nav-tick"></span></a>
+      <a href="#wiring" aria-label="Metal interconnects"><span class="nav-label">Wiring</span><span class="nav-tick"></span></a>
+      <a href="#transistor" aria-label="The transistor"><span class="nav-label">Transistor</span><span class="nav-tick"></span></a>
+    </nav>
+
+    <footer class="instrument-panel">
+      <div class="depth"><span id="depth-label">Package scale</span><div class="depth-rule"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="depth-note">Illustrative scale</span></div>
+      <div class="progress-wrap"><span id="chapter-position">01 / 05</span><div class="journey-progress" role="progressbar" aria-label="Depth into the chip" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div></div>
+      <button id="labels-button" class="quiet-button" aria-pressed="false">Hide text</button>
+    </footer>
+
+    <div class="load-status" role="status"><span class="load-ring" aria-hidden="true"></span><span id="load-message">Preparing silicon…</span></div>
+    <div class="fallback-message" id="fallback-message" hidden><p>The 3D view needs WebGL 2. You can still scroll through the chip’s layers.</p><button id="retry">Try 3D again</button></div>
+
+    <dialog id="about-dialog" aria-labelledby="about-title">
+      <form method="dialog"><button class="dialog-close" aria-label="Close about dialog">×</button></form>
+      <p class="chapter-index">About this exploration</p>
+      <h2 id="about-title">An inward journey.</h2>
+      <p>Inspired by MKBHD and Epic Spaceman’s <a href="https://www.youtube.com/watch?v=Jh9pFp1oM7E" target="_blank" rel="noopener noreferrer">I shrunk down into an M5 chip</a>.</p>
+      <p>This is an original, illustrative 3D reconstruction. The internal floorplan, dimensions, colors, and transistor cutaway are explanatory, not a reproduction of Apple’s proprietary chip layout. Scale changes are cinematic.</p>
+      <p>Apple describes M5 as using third-generation 3-nanometer technology. “3 nm” names a manufacturing generation; it is not the literal size of every transistor feature.</p>
+      <a class="source-link" href="https://www.apple.com/newsroom/2025/10/apple-unleashes-m5-the-next-big-leap-in-ai-performance-for-apple-silicon/" target="_blank" rel="noopener noreferrer">Read Apple’s M5 introduction</a>
+      <p>Materials are representative: silicon in the fin, doped semiconductor in source/drain regions, conductive metals in the gate and wiring, and an insulating gate dielectric. <a href="https://www.intel.com/pressroom/kits/advancedtech/doodle/ref_HiK-MG/high-k.htm" target="_blank" rel="noopener noreferrer">Hafnium-based high-k dielectrics</a> are a common technology example; this does not identify Apple’s exact gate stack.</p>
+      <p>The atomic view uses a diamond-cubic silicon model. Spheres mark atoms and rods mark bonds; they are not literal surfaces. A <a href="https://www.nist.gov/publications/certification-nist-standard-reference-material-640d" target="_blank" rel="noopener noreferrer">NIST silicon reference</a> gives a lattice constant near 0.543 nm. The nearest-neighbour spacing is a√3/4 ≈ 0.235 nm. These are bulk silicon reference values, not measurements of this illustrated chip.</p>
+      <p><a href="https://www.energy.gov/science/doe-explainselectrons" target="_blank" rel="noopener noreferrer">Electrons are described by probability clouds</a>, not fixed orbits or a bead with a measurable drawn diameter.</p>
+      <div class="dialog-help">Scroll or use the layer navigation to move inward. Reduced-motion settings are respected. <a href="./assets/renders/sequence/">View the Blender sequence and render progress.</a></div>
+    </dialog>
+    <noscript><div class="no-script">JavaScript enables the interactive 3D view. The chip story is available below.</div></noscript>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
