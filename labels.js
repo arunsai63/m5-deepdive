@@ -26,7 +26,6 @@ export class LabelLayer {
     this.svg.setAttribute('viewBox',`0 0 ${width} ${height}`);
     const copy=document.querySelector('.chapter.is-active .chapter-copy')?.getBoundingClientRect();
     const reserved=copy?{x:copy.x-8,y:copy.y-8,w:copy.width+16,h:copy.height+16}:null;
-    const reviewControls=[...document.querySelectorAll('.frame-preview-status,.frame-original')].map(el=>{const r=el.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height};});
     const placed=[],visible=new Set();
     const candidates=[...annotations].sort((a,b)=>(Number(b.focus)-Number(a.focus))||(Math.abs(a.stage-stage)-Math.abs(b.stage-stage)));
     for(const a of candidates) {
@@ -41,7 +40,6 @@ export class LabelLayer {
         for(const offset of offsets) {
           const box={x:clamp(side,18,width-w-22),y:clamp(a.y+offset,104,height-h-105),w,h};
           if(reserved&&intersects(box,reserved,12))continue;
-          if(reviewControls.some(r=>intersects(box,r,8)))continue;
           if(placed.some(p=>intersects(box,p,10)))continue;
           // Don't cover the projected structure with its own label.
           if(a.x>box.x-8&&a.x<box.x+w+8&&a.y>box.y-8&&a.y<box.y+h+8)continue;

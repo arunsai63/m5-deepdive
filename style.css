@@ -38,4 +38,3 @@ dialog{max-width:560px;width:calc(100% - 40px);border:1px solid #494c50;backgrou
 
 .atomic-view .edge-shade{background:linear-gradient(90deg,rgba(10,12,14,.95),rgba(10,12,14,.8) 24%,rgba(10,12,14,.15) 47%,transparent 65%),linear-gradient(0deg,rgba(10,12,14,.8),transparent 24%,transparent 85%,rgba(10,12,14,.55))}@media(max-width:800px){.atomic-view .edge-shade{background:linear-gradient(0deg,#0a0c0ef5,#0a0c0eea 36%,#0a0c0e85 52%,transparent 68%,#0a0c0e80 100%)}.atomic-view #transistor h2{font-size:38px}.atomic-view .chapter-copy{max-width:275px}}
 
-.frame-preview-status,.frame-original{position:fixed;z-index:6;right:44px;font-size:11px;color:#d9c4a4;text-decoration:none;background:rgba(13,17,21,.88);padding:7px 11px;border:1px solid #41413c;border-radius:4px}.frame-preview-status{top:87px}.frame-original{top:126px;color:#b5bdc1}@media(max-width:800px){.frame-preview-status{top:78px;right:20px;font-size:10px}.frame-original{top:112px;right:20px;font-size:10px}}

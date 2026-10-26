@@ -1,8 +1,6 @@
 import { JOURNEY_END } from './journey.js';
 import { LabelLayer } from './labels.js';
 const $=selector=>document.querySelector(selector);
-const blenderPreview=new URLSearchParams(location.search).get('render')==='blender';
-document.body.classList.toggle('blender-preview',blenderPreview);
 const labelLayer=new LabelLayer($('#object-annotations'));
 const chapters=[...document.querySelectorAll('.chapter')];
 const navLinks=[...document.querySelectorAll('.chapter-nav a')];
@@ -72,11 +70,11 @@ function frame(time) {
   const difference=targetProgress-progress;
   progress=reduceMotion.matches?targetProgress:progress+difference*(1-Math.exp(-delta/105));
   if(Math.abs(targetProgress-progress)<.00003)progress=targetProgress;
-  if(!blenderPreview)updateLabels();
+  updateLabels();
   if(ready&&(needsDraw||Math.abs(difference)>.00001)) {
     visualizer.pointer.x=reduceMotion.matches?0:pointer.x;
     visualizer.pointer.y=reduceMotion.matches?0:pointer.y;
-    try{visualizer.render(progress);if(blenderPreview)updateLabels(visualizer.presentedProgress??progress);labelLayer.update(visualizer.projectedAnnotations(),active);}catch(error){fallback(error);}
+    try{visualizer.render(progress);labelLayer.update(visualizer.projectedAnnotations(),active);}catch(error){fallback(error);}
   }
   needsDraw=false;
   if(Math.abs(targetProgress-progress)>.00001)schedule();
@@ -102,7 +100,7 @@ async function initialize() {
       // A fresh canvas also recovers a deliberately lost or exhausted context.
       const oldCanvas=$('#world');oldCanvas.replaceWith(oldCanvas.cloneNode(false));
     }
-    const Renderer=blenderPreview?(await import('./frame-renderer.js')).FrameRenderer:(await import('./renderer.js')).SiliconRenderer;
+    const Renderer=(await import('./renderer.js')).SiliconRenderer;
     visualizer=new Renderer($('#world'),{
       onProgress:message=>{$('#load-message').textContent=message;},onFailure:fallback,
       onFrame:()=>{needsDraw=true;schedule();},
